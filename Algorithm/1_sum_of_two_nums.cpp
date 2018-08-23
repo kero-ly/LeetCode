@@ -25,5 +25,5 @@ public:
             hashmap[nums[i]] = i;
         }
         return {};
-    }
+    } 
 };
