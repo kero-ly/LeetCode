@@ -27,36 +27,36 @@ class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 		
-		// 使用new分配一个新的内存，返回的时候可以不因为是临时变量而销毁
+        // 使用new分配一个新的内存，返回的时候可以不因为是临时变量而销毁
         ListNode* chain = new ListNode(0);
-		// 另外使用一个链头，在return的时候方便返回
+        // 另外使用一个链头，在return的时候方便返回
         ListNode* head = chain;
-		
-		// 进位标识
+        
+        // 进位标识
         int carry = 0;
 		
-		// 注意是 或 
+        // 注意是 或 
         while (l1 != NULL || l2 != NULL) {
 			
-			// 如果是空则赋值0，非空就是当前值
+            // 如果是空则赋值0，非空就是当前值
             int val1 = (l1 == NULL) ? 0 : l1->val;
             int val2 = (l2 == NULL) ? 0 : l2->val;
             
-			// 这里要先计算下一个节点的值，再计算进位，不然会把当前进位加到当前的值上
+            // 这里要先计算下一个节点的值，再计算进位，不然会把当前进位加到当前的值上
             chain->next = new ListNode((val1+val2+carry)%10);
             carry = (val1+val2+carry)/10;
             
-			// 链表推进
+            // 链表推进
             chain = chain->next;
             l1 = (l1 == NULL) ? l1 : l1->next;
             l2 = (l2 == NULL) ? l2 : l2->next;
         }
 		
-		// 别忘了最后可能有最高位的进位
+        // 别忘了最后可能有最高位的进位
         if (carry > 0)
             chain->next = new ListNode(carry);
 		
-		// 由于链的第一个节点值初始化是0，后面才开始新建-赋值，因此需要把第0个节点去掉
+        // 由于链的第一个节点值初始化是0，后面才开始新建-赋值，因此需要把第0个节点去掉
         return head->next;
     }
 };
