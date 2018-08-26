@@ -60,3 +60,42 @@ public:
         return head->next;
     }
 };
+
+/*
+解法2
+思路：条件合并！
+*/
+static int x = []() {
+     std::ios::sync_with_stdio(false);
+     cin.tie(NULL);
+     return 0;
+}();
+
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* ans=new ListNode(0);
+        ListNode* answer=ans;
+        while(l1||l2)
+        {
+            if(l1)ans->val+=l1->val;
+            if(l2)ans->val+=l2->val;
+            if(l1->next||l2->next||(ans->val>9))
+            {
+                ans->next=new ListNode(0);
+                if(ans->val>9)
+                {
+                 ans->val-=10;
+                 ans->next->val++;
+                }
+                if(l1->next)l1=l1->next;
+                else l1->val=0;
+                if(l2->next)l2=l2->next;
+                else l2->val=0;
+            }
+            else break;
+            ans=ans->next;
+        }
+        return answer;
+    }
+};
