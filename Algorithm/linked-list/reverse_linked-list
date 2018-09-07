@@ -1,0 +1,58 @@
+/*
+反转一个单链表。
+
+示例:
+输入: 1->2->3->4->5->NULL
+输出: 5->4->3->2->1->NULL
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+
+// 顺序存，逆序改next，需要先存一遍，然后反过来赋值一遍
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if (head == NULL || head->next == NULL)
+            return head;
+        
+        vector<ListNode*> hh;
+        while (head != NULL) {
+            hh.push_back(head);
+            head = head->next;
+        }
+        
+        ListNode* ret = hh[hh.size()-1];
+        head = ret;
+        for (int i = hh.size()-2; i >=0; i--) {
+            head->next = hh[i];
+            head = head->next;
+            if (i == 0)
+                head->next = NULL;
+        }
+        
+        return ret;
+    }
+};
+
+// 一遍逆序就可以了，就是看的麻烦一点
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* dummy = new ListNode(0);
+        ListNode* ptr = head;
+        while(head){
+            head = head->next;
+            ptr->next = dummy->next;
+            dummy->next = ptr;
+            ptr = head;
+        }
+        return dummy->next;
+    }
+};
